@@ -9,14 +9,13 @@ events {
 }
 
 http {
-        gzip on;
-        gzip_comp_level 2;
-        gzip_min_length 512;
+	gzip on;
+	gzip_comp_level 2;
+	gzip_min_length 512;
 
 	server_tokens off;
 
-	log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
-	access_log logs/nginx/access.log l2met;
+	access_log off;
 	error_log logs/nginx/error.log;
 
 	include mime.types;
@@ -28,7 +27,7 @@ http {
 
 	upstream app_server {
 		server unix:/tmp/nginx.socket fail_timeout=0;
- 	}
+	}
 
 	server {
 		listen <%= ENV["PORT"] %>;
